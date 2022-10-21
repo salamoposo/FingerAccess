@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "537983206202",
+    "firebase_url": "https://portal-finger-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "portal-finger",
+    "storage_bucket": "portal-finger.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537983206202:android:faa98a4036408370614603",
+        "android_client_info": {
+          "package_name": "com.example.fingeraccess"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "537983206202-qm8mk61rrvbepb3j1uj7gqk1q23l5mc6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBz-Ys8cZTzlKRqsyV9rbB50c6v7CDnEuA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "537983206202-qm8mk61rrvbepb3j1uj7gqk1q23l5mc6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
