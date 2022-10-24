@@ -5,34 +5,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bg1"
+    android:background="@drawable/bg2"
     tools:context=".Finger_Check">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Registrasi Jari"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:textSize="26sp"/>
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/fingercheck"
-        android:layout_marginTop="50dp"
-        android:layout_gravity="center"/>
-
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:cardElevation="4dp"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Registrasi Jari"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
+                android:textSize="18sp"/>
+            <ImageView
+                android:id="@+id/backbtnregist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_keyboard_backspace_24"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:layout_marginStart="8dp"/>
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/fingerprintscan"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        app:cardCornerRadius="20dp"
-        android:layout_marginTop="50dp">
+        android:text="Ikuti langkah-langkah dibawah untuk menyelesaikan proses registrasi"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:textColor="#455263"
+        android:textSize="14sp"/>
+
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="vertical">
@@ -46,15 +70,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+
                     android:clickable="false"/>
                 <TextView
                     android:id="@+id/pilihid"
                     android:fontFamily="@font/poppins"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:textColor="#43546A"
                     android:text="ID Jari"/>
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/white"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -71,8 +101,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins"
-                    android:text="Tempelkan jari pada sensor, tahan 2 deti lalu lepaskan"/>
+                    android:textColor="#43546A"
+                    android:text="Tempelkan jari pada sensor, tahan 2 detik lalu lepaskan"/>
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/white"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -88,8 +124,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins"
+                    android:textColor="#43546A"
                     android:text="Tempelkan lagi jari yang sama"/>
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/white"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -105,14 +147,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins"
+                    android:textColor="#43546A"
                     android:text="Berhasil Registrasi Jari"/>
             </LinearLayout>
 
-
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/white"/>
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/selesai"
@@ -121,8 +165,8 @@
         android:layout_below="@+id/linear2"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#303F9F"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="#4D5D7A"
         android:fontFamily="@font/poppins_semibold"
         android:text="Selesai"
         android:textColor="#FFFFFF"

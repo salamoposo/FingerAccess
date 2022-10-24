@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private MaterialButton registerBT;
     private EditText edtNama, edtEmail, edtnim, edtID;
+    private ImageView about_btn;
     private FirebaseAuth auth;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference refUser, usesid_ref, newId_ref, enroll_ref;
@@ -46,11 +48,20 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
 
+        about_btn = findViewById(R.id.about);
         progressBar = findViewById(R.id.pbarrmain);
         edtEmail = findViewById(R.id.edt_email);
         edtNama = findViewById(R.id.edt_nama);
         edtnim = findViewById(R.id.edt_nim);
         edtID = findViewById(R.id.idjari);
+
+        about_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, AboutDeveloper.class));
+                finish();
+            }
+        });
 
         registerBT = findViewById(R.id.register_btn);
         registerBT.setOnClickListener(new View.OnClickListener() {
@@ -182,5 +193,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    int a = 0;
+
+    @Override
+    public void onBackPressed() {
+        a++;
+        if (a == 1) {
+            Toast.makeText(this, "Tekan sekali lagi untuk keluar", Toast.LENGTH_SHORT).show();
+        } else if (a == 2) {
+            finish();
+        }
     }
 }

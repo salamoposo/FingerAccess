@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class Finger_Check extends AppCompatActivity {
     private CheckBox checkBox1, checkBox2, checkBox3, checkBox4;
     private MaterialButton selesai;
     TextView pilihId;
+    private ImageView back_btn;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference usesId_ref, user_ref, cekjari1, cekjari2, newId_ref, enroll_ref;
     FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -51,6 +53,7 @@ public class Finger_Check extends AppCompatActivity {
         user = auth.getCurrentUser();
         userid = user.getUid();
 
+        back_btn = findViewById(R.id.backbtnregist);
         selesai = findViewById(R.id.selesai);
         pilihId = findViewById(R.id.pilihid);
         checkBox1 = findViewById(R.id.cbox1);
@@ -58,6 +61,23 @@ public class Finger_Check extends AppCompatActivity {
         checkBox3 = findViewById(R.id.cbox3);
         checkBox4 = findViewById(R.id.cbox4);
         checkBox1.setChecked(true);
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                user_ref = database.getReference("User");
+                user_ref.child(userid).removeValue();
+                enroll_ref = database.getReference("fingerprint").child("enroll");
+                enroll_ref.setValue(0);
+                newId_ref = database.getReference("fingerprint").child("new_id");
+                newId_ref.setValue(0);
+                user.delete();
+                auth.signOut();
+                Toast.makeText(Finger_Check.this, "Registrasi Batal, Data dihapus!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Finger_Check.this, MainActivity.class));
+                finish();
+            }
+        });
 
         cekjari1 = database.getReference("fingerprint").child("feedback").child("cekJari1");
         cekjari1.addValueEventListener(new ValueEventListener() {
@@ -96,7 +116,7 @@ public class Finger_Check extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!checkBox4.isChecked() || !checkBox1.isChecked() || !checkBox2.isChecked() || !checkBox3.isChecked()) {
-                    Toast.makeText(Finger_Check.this, "Selesaikan Registrasi!!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Finger_Check.this, "Registrasi belum Selesai.!!!", Toast.LENGTH_SHORT).show();
                 } else {
                     startActivity(new Intent(Finger_Check.this, MainActivity.class));
                     finish();
@@ -117,6 +137,7 @@ public class Finger_Check extends AppCompatActivity {
         newId_ref.setValue(0);
         user.delete();
         auth.signOut();
+        Toast.makeText(this, "Registrasi Batal, Data dihapus!", Toast.LENGTH_SHORT).show();
         super.onBackPressed();
     }
 }
