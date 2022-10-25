@@ -103,91 +103,90 @@ public class MainActivity extends AppCompatActivity {
                 stat = 0;
                 Integer iID = Integer.valueOf(Id);
 
-                auth.createUserWithEmailAndPassword(Email, Nim)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    User newUser = new User(Nama, Email, Nim, Id);
-                                    String userid = auth.getUid();
-                                    refUser = database.getReference("User");
-                                    refUser.child(userid).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            enroll_ref = database.getReference("fingerprint").child("enroll");
-                                            enroll_ref.setValue(1);
-                                            usesid_ref = database.getReference("usesId").push();
-                                            usesid_ref.setValue(iID);
-                                            newId_ref = database.getReference("fingerprint").child("new_id");
-                                            newId_ref.setValue(iID);
-                                            startActivity(new Intent(MainActivity.this, Finger_Check.class));
-                                            Toast.makeText(MainActivity.this, "Berhasil Mendaftar", Toast.LENGTH_SHORT).show();
-                                            finish();
-                                            progressBar.setVisibility(View.GONE);
-                                        }
-                                    });
-                                } else {
-                                    Toast.makeText(MainActivity.this, "GAGAL", Toast.LENGTH_SHORT).show();
-                                    progressBar.setVisibility(View.GONE);
-                                }
-                            }
-                        });
-
-
-//                Query query = database.getReference("User")
-//                        .orderByChild("Id")
-//                        .equalTo(Id);
-//                query.addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-//                            User user = dataSnapshot.getValue(User.class);
-//                            String sid = user.Id;
-//                            if (Objects.equals(sid, Id)) {
-//                                stat = 1;
-//                                Toast.makeText(MainActivity.this, "id sudah ada", Toast.LENGTH_SHORT).show();
-//                                progressBar.setVisibility(View.GONE);
-//                            }
-//
-//                        }
-//                        if (stat != 1) {
-//                            auth.createUserWithEmailAndPassword(Email, Nim)
-//                                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                auth.createUserWithEmailAndPassword(Email, Nim)
+//                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<AuthResult> task) {
+//                                if (task.isSuccessful()) {
+//                                    User newUser = new User(Nama, Email, Nim, Id);
+//                                    String userid = auth.getUid();
+//                                    refUser = database.getReference("User");
+//                                    refUser.child(userid).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
 //                                        @Override
-//                                        public void onComplete(@NonNull Task<AuthResult> task) {
-//                                            if (task.isSuccessful()) {
-//                                                User newUser = new User(Nama, Email, Nim, Id);
-//                                                String userid = auth.getUid();
-//                                                refUser = database.getReference("User");
-//                                                refUser.child(userid).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                                    @Override
-//                                                    public void onComplete(@NonNull Task<Void> task) {
-//                                                        enroll_ref = database.getReference("fingerprint").child("enroll");
-//                                                        enroll_ref.setValue(1);
-//                                                        usesid_ref = database.getReference("usesId").push();
-//                                                        usesid_ref.setValue(iID);
-//                                                        newId_ref = database.getReference("fingerprint").child("new_id");
-//                                                        newId_ref.setValue(iID);
-//                                                        startActivity(new Intent(MainActivity.this, Finger_Check.class));
-//                                                        Toast.makeText(MainActivity.this, "Berhasil Mendaftar", Toast.LENGTH_SHORT).show();
-//                                                        finish();
-//                                                        progressBar.setVisibility(View.GONE);
-//                                                    }
-//                                                });
-//                                            } else {
-//                                                Toast.makeText(MainActivity.this, "GAGAL", Toast.LENGTH_SHORT).show();
-//                                                progressBar.setVisibility(View.GONE);
-//                                            }
+//                                        public void onComplete(@NonNull Task<Void> task) {
+//                                            enroll_ref = database.getReference("fingerprint").child("enroll");
+//                                            enroll_ref.setValue(1);
+//                                            usesid_ref = database.getReference("usesId").push();
+//                                            usesid_ref.setValue(iID);
+//                                            newId_ref = database.getReference("fingerprint").child("new_id");
+//                                            newId_ref.setValue(iID);
+//                                            startActivity(new Intent(MainActivity.this, Finger_Check.class));
+//                                            Toast.makeText(MainActivity.this, "Berhasil Mendaftar", Toast.LENGTH_SHORT).show();
+//                                            finish();
+//                                            progressBar.setVisibility(View.GONE);
 //                                        }
 //                                    });
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                });
+//                                } else {
+//                                    Toast.makeText(MainActivity.this, "GAGAL", Toast.LENGTH_SHORT).show();
+//                                    progressBar.setVisibility(View.GONE);
+//                                }
+//                            }
+//                        });
+
+                Query query = database.getReference("User")
+                        .orderByChild("Id")
+                        .equalTo(Id);
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            User user = dataSnapshot.getValue(User.class);
+                            String sid = user.Id;
+                            if (Objects.equals(sid, Id)) {
+                                stat = 1;
+                                Toast.makeText(MainActivity.this, "id sudah ada", Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
+                            }
+
+                        }
+                        if (stat != 1) {
+                            auth.createUserWithEmailAndPassword(Email, Nim)
+                                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if (task.isSuccessful()) {
+                                                User newUser = new User(Nama, Email, Nim, Id);
+                                                String userid = auth.getUid();
+                                                refUser = database.getReference("User");
+                                                refUser.child(userid).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        enroll_ref = database.getReference("fingerprint").child("enroll");
+                                                        enroll_ref.setValue(1);
+                                                        usesid_ref = database.getReference("usesId").push();
+                                                        usesid_ref.setValue(iID);
+                                                        newId_ref = database.getReference("fingerprint").child("new_id");
+                                                        newId_ref.setValue(iID);
+                                                        startActivity(new Intent(MainActivity.this, Finger_Check.class));
+                                                        Toast.makeText(MainActivity.this, "Berhasil Mendaftar", Toast.LENGTH_SHORT).show();
+                                                        finish();
+                                                        progressBar.setVisibility(View.GONE);
+                                                    }
+                                                });
+                                            } else {
+                                                Toast.makeText(MainActivity.this, "GAGAL", Toast.LENGTH_SHORT).show();
+                                                progressBar.setVisibility(View.GONE);
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
 
             }

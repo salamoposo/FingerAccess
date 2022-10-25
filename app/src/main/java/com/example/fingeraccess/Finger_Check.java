@@ -39,10 +39,7 @@ public class Finger_Check extends AppCompatActivity {
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user;
 
-    NumberPicker numberPicker;
-
     String userid;
-
     Integer sid;
 
     @Override
@@ -138,6 +135,8 @@ public class Finger_Check extends AppCompatActivity {
         user.delete();
         auth.signOut();
         Toast.makeText(this, "Registrasi Batal, Data dihapus!", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(Finger_Check.this, MainActivity.class));
+        finish();
         super.onBackPressed();
     }
 }

@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             app:cardElevation="4dp">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -32,7 +33,7 @@
                     android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="4dp"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:src="@drawable/ic_baseline_info_24"/>
 
@@ -161,13 +162,10 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/register_btn"
                 android:layout_width="130dp"
                 android:layout_height="50dp"
-                android:layout_below="@+id/linear2"
-                android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
                 android:backgroundTint="#4D5D7A"
@@ -177,7 +175,6 @@
                 app:cornerRadius="15dp" />
         </LinearLayout>
     </LinearLayout>
-
     <ProgressBar
         android:id="@+id/pbarrmain"
         android:layout_width="wrap_content"
