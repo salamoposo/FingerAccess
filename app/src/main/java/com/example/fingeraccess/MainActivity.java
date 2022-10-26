@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private MaterialButton registerBT;
     private EditText edtNama, edtEmail, edtnim, edtID;
-    private ImageView about_btn;
+    private ImageView about_btn, history_btn;
     private FirebaseAuth auth;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference refUser, usesid_ref, newId_ref, enroll_ref;
@@ -47,13 +47,21 @@ public class MainActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-
+        history_btn = findViewById(R.id.history);
         about_btn = findViewById(R.id.about);
         progressBar = findViewById(R.id.pbarrmain);
         edtEmail = findViewById(R.id.edt_email);
         edtNama = findViewById(R.id.edt_nama);
         edtnim = findViewById(R.id.edt_nim);
         edtID = findViewById(R.id.idjari);
+
+        history_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,HistoryActivity.class));
+                finish();
+            }
+        });
 
         about_btn.setOnClickListener(new View.OnClickListener() {
             @Override
