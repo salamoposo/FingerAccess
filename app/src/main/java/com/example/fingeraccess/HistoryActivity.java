@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ListView;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,10 +17,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class HistoryActivity extends AppCompatActivity {
+    ImageView back_btn;
     RecyclerView recyclerView;
-    ArrayList<User> list;
+    ArrayList<RiwayatAkses> list;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference dbUser;
     MyAdapter adapter;
@@ -30,19 +34,33 @@ public class HistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_history);
         recyclerView = findViewById(R.id.recycleview);
 
-        dbUser = database.getReference("User");
-        list = new ArrayList<>();
+        back_btn = findViewById(R.id.backBtnHistory);
+        dbUser = database.getReference("riwayatAkses");
+        list = new ArrayList<RiwayatAkses>();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new MyAdapter(this, list);
         recyclerView.setAdapter(adapter);
 
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HistoryActivity.this, MainActivity.class));
+                finish();
+            }
+        });
+
         dbUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                RiwayatAkses riwayatAkses;
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    User user = dataSnapshot.getValue(User.class);
-                    list.add(user);
+                    riwayatAkses = dataSnapshot.getValue(RiwayatAkses.class);
+                    if (riwayatAkses != null){
+                        list.add(riwayatAkses);
+                    }
+
                 }
+                Collections.reverse(list);
                 adapter.notifyDataSetChanged();
             }
 

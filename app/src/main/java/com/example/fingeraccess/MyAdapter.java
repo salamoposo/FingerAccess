@@ -13,9 +13,9 @@ import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     Context context;
-    ArrayList<User> list;
+    ArrayList<RiwayatAkses> list;
 
-    public MyAdapter(Context context, ArrayList<User> list) {
+    public MyAdapter(Context context, ArrayList<RiwayatAkses> list) {
         this.context = context;
         this.list = list;
     }
@@ -29,9 +29,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
-        User user = list.get(position);
-         holder.name.setText(user.Nama);
-         holder.id.setText(user.Id);
+        RiwayatAkses riwayatAkses = list.get(position);
+         holder.name.setText(riwayatAkses.Nama);
+         holder.id.setText(riwayatAkses.Id.toString());
+         holder.time.setText(riwayatAkses.Waktu);
     }
 
     @Override

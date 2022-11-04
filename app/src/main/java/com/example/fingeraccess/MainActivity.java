@@ -25,6 +25,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,9 +40,11 @@ public class MainActivity extends AppCompatActivity {
     private ImageView about_btn, history_btn;
     private FirebaseAuth auth;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference refUser, usesid_ref, newId_ref, enroll_ref;
-    private FirebaseUser firebaseUser;
+    private DatabaseReference refUser, usesid_ref, newId_ref, enroll_ref, idhHistory_ref, newHistory, timestamp_ref;
 
+    Long timeFirebase;
+    SimpleDateFormat simpleDateFormat, jsutTime;
+    String firebaseTime, time;
     Integer stat = 0;
 
     @Override
@@ -46,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         auth = FirebaseAuth.getInstance();
-
         history_btn = findViewById(R.id.history);
         about_btn = findViewById(R.id.about);
         progressBar = findViewById(R.id.pbarrmain);
@@ -54,6 +60,69 @@ public class MainActivity extends AppCompatActivity {
         edtNama = findViewById(R.id.edt_nama);
         edtnim = findViewById(R.id.edt_nim);
         edtID = findViewById(R.id.idjari);
+
+        //timestamp
+        timestamp_ref = database.getReference("timestamp");
+        timestamp_ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                timeFirebase = snapshot.getValue(Long.class);
+                if (timeFirebase!=null){
+                    Date firebaseDate = new Date(timeFirebase);
+                    simpleDateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss", Locale.getDefault());
+                    jsutTime = new SimpleDateFormat("EEE, HH:mm:ss", Locale.getDefault());
+                    firebaseTime = simpleDateFormat.format(firebaseDate);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        //History update
+        idhHistory_ref = database.getReference("riwayat");
+        idhHistory_ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Integer riwayat = snapshot.getValue(Integer.class);
+                String sriwayat = String.valueOf(riwayat);
+
+                Query queryHistory = database.getReference("User")
+                        .orderByChild("Id")
+                        .equalTo(sriwayat);
+                queryHistory.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                            User user = dataSnapshot.getValue(User.class);
+                            assert user != null;
+                            String Nama = user.Nama;
+                            String Id = user.Id;
+                            Integer intID = Integer.valueOf(Id);
+
+                            Map map = new HashMap();
+                            map.put("Nama", Nama);
+                            map.put("Id", intID );
+                            map.put("Waktu", firebaseTime);
+                            newHistory = database.getReference("riwayatAkses").push();
+                            newHistory.setValue(map);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         history_btn.setOnClickListener(new View.OnClickListener() {
             @Override
