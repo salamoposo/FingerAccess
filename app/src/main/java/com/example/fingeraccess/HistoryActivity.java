@@ -32,6 +32,7 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+
         recyclerView = findViewById(R.id.recycleview);
 
         back_btn = findViewById(R.id.backBtnHistory);
@@ -57,11 +58,10 @@ public class HistoryActivity extends AppCompatActivity {
                     riwayatAkses = dataSnapshot.getValue(RiwayatAkses.class);
                     if (riwayatAkses != null){
                         list.add(riwayatAkses);
+                        Collections.reverse(list);
+                        adapter.notifyDataSetChanged();
                     }
-
                 }
-                Collections.reverse(list);
-                adapter.notifyDataSetChanged();
             }
 
             @Override

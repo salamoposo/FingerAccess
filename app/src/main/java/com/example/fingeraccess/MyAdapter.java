@@ -31,7 +31,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
         RiwayatAkses riwayatAkses = list.get(position);
          holder.name.setText(riwayatAkses.Nama);
-         holder.id.setText(riwayatAkses.Id.toString());
+//         holder.id.setText(riwayatAkses.Id.toString());
          holder.time.setText(riwayatAkses.Waktu);
     }
 
